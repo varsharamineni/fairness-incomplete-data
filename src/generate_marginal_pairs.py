@@ -9,13 +9,15 @@ def generate_all_p_a(range = np.arange(0.1, 0.9, 0.1)):
     # Loop over all possible values for p_a(x1=0, x2=0), p_a(x1=0, x2=1), p_a(x1=1, x2=0)
     for p00, p01, p10 in product(range, repeat=3):
         p11 = 1 - (p00 + p01 + p10)  # Ensure the sum equals 1
-        if p11 >= 0:  # Valid distribution if the last value is non-negative
+        if p11 >= 0 and (p10 + p11) > 0.5:  # Valid distribution if the last value is non-negative
             p_a = {
                 (0, 0): p00,
                 (1, 0): p10,
                 (0, 1): p01,
                 (1, 1): p11
             }
+            
+            
             p_a_list.append(p_a)
     return p_a_list
 

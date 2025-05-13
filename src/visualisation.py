@@ -58,6 +58,8 @@ def analyze_equal_opportunity(df, show_plots=True, verbose=True):
         plt.ylabel('Frequency', fontsize=12)
         plt.grid(axis='y', linestyle='--', alpha=0.7)
         plt.show()
+        plt.savefig('plot1_0.01.pdf')  # Save as PDF
+
         
         plt.figure(figsize=(8, 5))
         plt.hist(grouped_df['variance_equal_opportunity'], bins=10, color='skyblue', edgecolor='black', alpha=0.7)
@@ -66,6 +68,8 @@ def analyze_equal_opportunity(df, show_plots=True, verbose=True):
         plt.ylabel('Frequency', fontsize=12)
         plt.grid(axis='y', linestyle='--', alpha=0.7)
         plt.show()
+        plt.savefig('plot2_0.01.pdf')  # Save as PDF
+
     
     return grouped_df, stats
 
