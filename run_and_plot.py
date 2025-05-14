@@ -20,20 +20,19 @@ if __name__ == "__main__":
     results_df = results_df[results_df['true_di'] <= 5.0]
     
     #plot_fairness_metrics_comparison(results_df, save_path="paperfigs/fairness_metrics_comparison.pdf")
+    plot_fairness_ranges(results_df, save_path="paperfigs/fairness_ranges.pdf")
     
 
 
 
 
-
-    
     
     
     
     plt.figure(figsize=(6, 5))
-    sns.boxplot(y=results_df['true_mean_diff_dd'], color='lightblue', hue=results_df['kl_bin'], width=0.3, showfliers=False)
+    sns.boxplot(y=results_df['range_dd'], color='lightblue', width=0.3, showfliers=False)
 
-    plt.title("Distribution of True - Mean of Plausible Fairness (Disparate Impact)")
+    plt.title("Ranges of Demographic Disparity")
     plt.ylabel("")
     plt.xlabel("")  # Leave blank or put a label like "Fairness Metric" if you prefer
     plt.grid(axis='y', linestyle='--', alpha=0.7)

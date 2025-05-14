@@ -54,3 +54,51 @@ def plot_fairness_metrics_comparison(results_df, save_path="fairness_metrics_com
     plt.tight_layout(rect=[0, 0, 1, 0.95])
     plt.savefig(save_path, format="pdf", dpi=300, bbox_inches="tight")
     plt.show()
+    
+    
+def plot_fairness_ranges(results_df, save_path="paperfigs/fairness_ranges.pdf"):
+        """
+        Plot and save side-by-side boxplots for range_dd and range_di.
+
+        Args:
+            results_df (pd.DataFrame): DataFrame with columns 'range_dd' and 'range_di'.
+            save_folder (str): Path to the folder where the plot will be saved.
+            filename (str): Name of the output file (default: 'fairness_ranges.png').
+        """
+        sns.set_theme(style="whitegrid", font_scale=1.2)
+
+        # Initialize figure with two subplots
+        fig, axs = plt.subplots(1, 2, figsize=(12, 5), sharey=False)
+
+        # Demographic Disparity (DD)
+        sns.boxplot(
+            y=results_df['range_dd'], 
+            color='#1b7764',
+            width=0.4, 
+            showfliers=False, 
+            ax=axs[0]
+        )
+        axs[0].set_title("Demographic Disparity (DD)")
+        axs[0].set_ylabel("Range")
+        axs[0].grid(axis='y', linestyle='--', alpha=0.7)
+
+        # Disparate Impact (DI)
+        sns.boxplot(
+            y=results_df['range_di'], 
+            color='steelblue', 
+            width=0.4, 
+            showfliers=False, 
+            ax=axs[1]
+        )
+        axs[1].set_title("Disparate Impact (DI)")
+        axs[1].set_ylabel("")  # Avoid repeating y-label
+        axs[1].grid(axis='y', linestyle='--', alpha=0.7)
+
+        # Main title
+        fig.suptitle("Ranges of Plausible Fairness Metrics over Feasible Joint Distributions", fontsize=14)
+
+        plt.tight_layout(rect=[0, 0.03, 1, 0.99])  # Leave space for suptitle
+
+        # Save and show
+        plt.savefig(save_path, dpi=300, bbox_inches='tight', format='pdf')
+        plt.show()

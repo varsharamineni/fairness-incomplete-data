@@ -5,12 +5,12 @@ def generate_random_joint():
     probs = np.random.dirichlet(np.ones(8))
     return dict(zip(keys, probs))
 
-def generate_random_classifier_probs():
+def generate_random_classifier_probs(seed=None):
+    rng = np.random.default_rng(seed)  # Creates a reproducible RNG if seed is set
     classifier_probs = {}
     for o in [0, 1]:
-        # Use a Dirichlet distribution to generate probabilities for s = 0 and s = 1
-        alpha = np.array([1, 1])  # Symmetric Dirichlet distribution (uniform distribution)
-        probs = np.random.dirichlet(alpha)
+        alpha = np.array([1, 1])  # Uniform over [0, 1]
+        probs = rng.dirichlet(alpha)
         classifier_probs[(0, o)] = probs[0]  # p(s = 0 | o)
         classifier_probs[(1, o)] = probs[1]  # p(s = 1 | o)
     return classifier_probs

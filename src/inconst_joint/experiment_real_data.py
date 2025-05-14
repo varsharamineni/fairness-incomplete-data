@@ -6,7 +6,10 @@ from inconst_joint.break_consistency import break_o_consistency, check_marginal_
 from inconst_joint.valid_joint import solve_joint_distribution_iterate_cond
 import pandas as pd
 
-def compare_disparate_impact_with_reconstructed_joints(joint, classifier_probs, metric_fns, alpha=1.0, beta=1.0, min_value=0.00, max_value=1.0, num=100):
+
+from data.marginals import compute_joint_indep_given_overlap, compute_joint_marginal_preservation
+
+def obtain_plausible_metrics(joint, classifier_probs, metric_fns, alpha=1.0, beta=1.0, min_value=0.00, max_value=1.0, num=100):
     
         """
         Compare true vs. estimated fairness metrics over reconstructed joints.
@@ -35,6 +38,10 @@ def compare_disparate_impact_with_reconstructed_joints(joint, classifier_probs, 
         candidate_joints = solve_joint_distribution_iterate_cond(
             pa=pa, pb=pb, min_value=min_value, max_value=max_value, num=num
         )
+        
+        indep_given_overlap_joint = compute_joint_indep_given_overlap(pa, pb)
+        marginal_preservation_joint = compute_joint_marginal_preservation(pa, pb)
+
 
         results["const"] = const
         results["alpha"] = alpha
@@ -43,6 +50,10 @@ def compare_disparate_impact_with_reconstructed_joints(joint, classifier_probs, 
 
         for name, fn in metric_fns.items():
             true_val = fn(joint, classifier_probs)
+            indep_given_overlap_val = fn(indep_given_overlap_joint, classifier_probs)
+            marginal_preservation_val = fn(marginal_preservation_joint, classifier_probs)
+            
+            
             candidate_vals = [fn(c, classifier_probs) for c in candidate_joints]
             kl_true_joints = [compute_kl_y_given_e(joint, c, classifier_probs) for c in candidate_joints]
             
@@ -56,62 +67,16 @@ def compare_disparate_impact_with_reconstructed_joints(joint, classifier_probs, 
                 results[f"max_{name}"] = max(candidate_vals)
                 results[f"range_{name}"] = max(candidate_vals) - min(candidate_vals)
                 results[f"avg_diff_{name}"] = np.mean([abs(v - true_val) for v in candidate_vals])
+                results[f'plausible_metrics_{name}'] = candidate_vals
+                
+                
+                results[f"indep_given_overlap_{name}"] = indep_given_overlap_val
+                results[f"marginal_preservation_{name}"] = marginal_preservation_val
             else:
                 for k in ["true", "mean", "true_mean_diff", "min", "max", "range", "avg_diff"]:
                     results[f"{k}_{name}"] = np.nan
 
         return results
-
-
-def run_full_experiment(
-    num_trials=5,
-    alphas=[1.0, 1.5, 2.0],
-    betas=[1.0, 0.8, 0.5],
-    num_candidates=100,
-    metric_fns= {
-    "di": compute_disparate_impact_from_joint,
-    "dd": compute_demographic_disparity_from_joint}
-):
-    results = []
-
-    for trial in range(num_trials):
-        print(trial)
-        joint = generate_random_joint()
-        classifier_probs = generate_random_classifier_probs()
-
-        for alpha, beta in itertools.product(alphas, betas):
-            res = compare_disparate_impact_with_reconstructed_joints(
-                joint, classifier_probs, metric_fns,
-                alpha=alpha, beta=beta,
-                num=num_candidates
-            )
-            res['trial'] = trial
-            results.append(res)
-
-    return pd.DataFrame(results)
-
-
-# Integrating into the experiment setup
-def run_systematic_experiment(
-    num_trials=5,
-    alphas=[1.0, 1.5, 2.0],
-    betas=[1.0, 0.8, 0.5],
-    num_candidates=100
-):
-    results = []
-
-    # Run experiments systematically over joint distributions and classifier probs
-    for joint in generate_systematic_joint():
-        for classifier_probs in generate_systematic_classifier_probs():
-            for alpha, beta in itertools.product(alphas, betas):
-                res = compare_disparate_impact_with_reconstructed_joints(
-                    joint, classifier_probs,
-                    alpha=alpha, beta=beta,
-                    num=num_candidates
-                )
-                results.append(res)
-
-    return pd.DataFrame(results)
 
 
 
@@ -128,16 +93,19 @@ def run_full_experiment_real_data(
     num_candidates=100,
     metric_fns= {
     "di": compute_disparate_impact_from_joint,
-    "dd": compute_demographic_disparity_from_joint}
+    "dd": compute_demographic_disparity_from_joint},
+    classifier_probs=None,
+    seed=100
 ):
     results = []
     
     pa, pb, joint = compute_distributions(data_folder, s_var, o_var, e_var)
 
-    classifier_probs = generate_random_classifier_probs()
+    if classifier_probs is None:
+        classifier_probs = generate_random_classifier_probs(seed=seed)
 
     for alpha, beta in itertools.product(alphas, betas):
-        res = compare_disparate_impact_with_reconstructed_joints(
+        res = obtain_plausible_metrics(
             joint, classifier_probs, metric_fns,
             alpha=alpha, beta=beta,
             num=num_candidates
