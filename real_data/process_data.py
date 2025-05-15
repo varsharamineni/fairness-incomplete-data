@@ -1,4 +1,4 @@
-from data.data_processing import german_data_clean
+from data.data_processing import *
 
 german_data_clean(
     data_folder='real_data/raw/',
@@ -7,7 +7,16 @@ german_data_clean(
     save_name='german_clean'
 )
 
+adult_data_clean(
+    data_folder='real_data/raw/',
+    data_name='adult',
+    save_folder='real_data/processed/',
+    save_name='adult_clean'
+)
 
-
-
-print('hello')
+compas_data_clean(
+    data_folder='real_data/raw/',
+    data_name='compas-scores-two-years_clean',
+    save_folder='real_data/processed/',
+    save_name='compas_clean'
+)

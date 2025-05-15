@@ -1,4 +1,4 @@
-from inconst_joint.experiment import run_full_experiment, run_systematic_experiment
+from joint_feasible_set.experiment import run_full_experiment, run_systematic_experiment
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
