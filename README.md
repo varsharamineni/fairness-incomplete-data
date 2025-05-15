@@ -10,7 +10,17 @@
 ## Overview
 <p align="center">
   <img src="docs/figs/framework.png" width="600">
-</a>
+  Figure 1: Illustration of our approach to bound and estimate fairness from incomplete data. The
+internal dataset (e.g., from a bank) contains non-protected attributes like savings and occupation,
+but lacks protected attributes such as ethnicity. A separate external public dataset includes protected
+attribute ethnicity and overlaps partially with the internal dataset (e.g., occupation attribute is common
+in both datasets). Top: The first approach assumes structural or independence assumptions to produce
+a single estimated joint distribution, and therefore a single fairness estimate. Bottom: The second
+approach uses the marginal distributions from both sources to estimate the set of joint distributions
+consistent with the observed marginals. This allows fairness metrics to be computed over the space of
+feasible distributions, enabling bounding and estimation of fairness even in the absence of complete
+data.
+</p>
 <br />
 
 ### Abstract
