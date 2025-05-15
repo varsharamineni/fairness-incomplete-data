@@ -1,4 +1,4 @@
-# joint-dist-toy
+# Beyond Internal Data: Bounding and Estimating Fairness from Incomplete Data
 
 
 
