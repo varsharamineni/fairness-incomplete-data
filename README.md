@@ -9,7 +9,7 @@
 
 ## Overview
 <p align="center">
-  <img src="figs/#" width="400">
+  <img src="docs/figs/framework.png" width="400">
 </a>
 <br />
 
