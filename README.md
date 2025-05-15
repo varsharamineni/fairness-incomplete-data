@@ -9,7 +9,7 @@
 
 ## Overview
 <p align="center">
-  <img src="docs/figs/framework.png" width="600">
+  <img src="docs/figs/framework.png" width="600"><br />
   Figure 1: Illustration of our approach to bound and estimate fairness from incomplete data. The
 internal dataset (e.g., from a bank) contains non-protected attributes like savings and occupation,
 but lacks protected attributes such as ethnicity. A separate external public dataset includes protected
