@@ -13,6 +13,8 @@
 </a>
 <br />
 
+### Abstract
+Ensuring fairness in AI systems is critical, especially in high-stakes domains such as lending, hiring, and healthcare. This urgency is reflected in emerging global regulations that mandate fairness assessments and independent bias audits. However, procuring the necessary complete data for fairness testing remains a significant challenge. In industry settings, legal and privacy concerns restrict the collection of demographic data required to assess group disparities, and auditors face practical and cultural challenges in gaining access to data. In practice, data relevant for fairness testing is often split across separate sources: internal datasets held by institutions with predictive attributes, and external public datasets such as census data containing protected attributes, each providing only partial, marginal information. Our work seeks to leverage such available separate data to estimate model fairness when complete data is inaccessible. We propose utilising the available separate data to estimate a set of feasible joint distributions and then compute the set plausible fairness metrics. Through simulation experiments, we demonstrate that we can derive meaningful bounds on fairness metrics and obtain reliable estimates of the true metric. Our results demonstrate that this approach can serve as a practical and effective solution for fairness testing in real-world settings where access to complete data is restricted.
 
 ## Project Structure
 
