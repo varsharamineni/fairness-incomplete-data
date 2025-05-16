@@ -86,7 +86,7 @@ def plot_grouped_true_vs_mean(data, col="alpha", row="beta", metric="dd"):
     
 
 
-def plot_metric_range_check(results_df, metric_prefix='eod', index_col='trial'):
+def plot_metric_range_check(results_df, metric_prefix='di', index_col='trial'):
     """
     Plots true metric value with min/max reconstructed bounds and highlights out-of-range points.
 

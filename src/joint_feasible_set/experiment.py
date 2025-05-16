@@ -115,7 +115,7 @@ def run_systematic_experiment(
 
 
 
-from data.marginals import compute_distributions
+from data.compute_dist import compute_distributions
 
 
 def run_full_experiment_real_data(

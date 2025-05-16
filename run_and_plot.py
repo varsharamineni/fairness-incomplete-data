@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 
-from inconst_joint.experiment import run_full_experiment
-from inconst_joint.visualise import *
+from joint_feasible_set.experiment import run_full_experiment
+from joint_feasible_set.visualise import *
 from paper_visualisations import *
 
 
@@ -13,17 +13,21 @@ if __name__ == "__main__":
     
     results_df = pd.read_csv("results/experiment_results_1000_di_dd_kl.csv")
     
-    bins = [0, 0.05, 0.1, 0.2, 0.3, 0.5, 10.0]
-    labels = ['0–0.05', '0.05–0.1', '0.1–0.2', '0.2–0.3', '0.3–0.5', '0.5+']
+
+    bins = [0, 0.01, 0.05, 0.1, 0.3, 0.5, 10.0]
+    labels = ['0–0.01 (≈0)', '0.01–0.05', '0.05–0.1', '0.1–0.3', '0.3–0.5', '0.5+']
+    
     results_df['kl_bin'] = pd.cut(results_df['const'], bins=bins, labels=labels, include_lowest=True)
     
     results_df = results_df[results_df['true_di'] <= 5.0]
     
-    #plot_fairness_metrics_comparison(results_df, save_path="paperfigs/fairness_metrics_comparison.pdf")
-    plot_fairness_ranges(results_df, save_path="paperfigs/fairness_ranges.pdf")
+    plot_fairness_metrics_comparison(results_df, save_path="paperfigs/fairness_metrics_comparison.pdf")
+    #plot_fairness_ranges(results_df, save_path="paperfigs/fairness_ranges.pdf")
     
 
 
+    plot_metric_range_check(results_df, metric_prefix='di', index_col='trial')
+    plot_metric_range_check(results_df, metric_prefix='dd', index_col='trial')
 
 
     

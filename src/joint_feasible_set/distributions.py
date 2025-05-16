@@ -11,8 +11,8 @@ def generate_random_classifier_probs(seed=None):
     for o in [0, 1]:
         alpha = np.array([1, 1])  # Uniform over [0, 1]
         probs = rng.dirichlet(alpha)
-        classifier_probs[(0, o)] = probs[0]  # p(s = 0 | o)
-        classifier_probs[(1, o)] = probs[1]  # p(s = 1 | o)
+        classifier_probs[(0, o)] = probs[0]  # p(y = 1 | s=0, o)
+        classifier_probs[(1, o)] = probs[1]  # p(s = 1 | s=1, o)
     return classifier_probs
 
 

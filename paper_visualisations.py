@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import ast
+import re
 
 
 def plot_fairness_metrics_comparison(results_df, save_path="fairness_metrics_comparison.pdf"):
@@ -20,7 +22,6 @@ def plot_fairness_metrics_comparison(results_df, save_path="fairness_metrics_com
     #axs[0, 0].set_title("Histogram of True DI − Mean DI Differences", fontsize=14)
     axs[0, 0].set_xlabel("True DI (from Ground Truth Joint) − Mean DI (Across Feasible Joint Distributions)", fontsize=12)
     axs[0, 0].set_ylabel("Frequency", fontsize=12)
-    axs[0, 0].axvline(0, color='red', linestyle='--', linewidth=1)
     axs[0, 0].legend(fontsize=10)
     axs[0, 0].grid(True, linestyle='--', alpha=0.5)
 
@@ -38,7 +39,6 @@ def plot_fairness_metrics_comparison(results_df, save_path="fairness_metrics_com
     #axs[1, 0].set_title("Histogram of True DD − Mean DD Differences", fontsize=14)
     axs[1, 0].set_xlabel("True DD (from Ground Truth Joint) − Mean DD (Across Feasible Joint Distributions)", fontsize=12)
     axs[1, 0].set_ylabel("Frequency", fontsize=12)
-    axs[1, 0].axvline(0, color='red', linestyle='--', linewidth=1)
     axs[1, 0].grid(True, linestyle='--', alpha=0.5)
 
 
@@ -56,6 +56,14 @@ def plot_fairness_metrics_comparison(results_df, save_path="fairness_metrics_com
     plt.show()
     
     
+def str_to_float_list(s: str) -> list:
+
+        # Replace np.float64(...) with just the number inside
+    cleaned = re.sub(r'np\.float64\((.*?)\)', r'\1', s)
+        
+        # Convert cleaned string to a Python list using ast.literal_eval
+    return ast.literal_eval(cleaned)
+    
 def plot_fairness_ranges(results_df, save_path="paperfigs/fairness_ranges.pdf"):
         """
         Plot and save side-by-side boxplots for range_dd and range_di.
@@ -69,36 +77,97 @@ def plot_fairness_ranges(results_df, save_path="paperfigs/fairness_ranges.pdf"):
 
         # Initialize figure with two subplots
         fig, axs = plt.subplots(1, 2, figsize=(12, 5), sharey=False)
-
-        # Demographic Disparity (DD)
-        sns.boxplot(
-            y=results_df['range_dd'], 
-            color='#1b7764',
+        
+        # Disparate Impact (DI)
+        boxplot_di = sns.boxplot(
+            y=results_df['range_di'], 
+            color='lightblue', 
             width=0.4, 
             showfliers=False, 
-            ax=axs[0]
-        )
-        axs[0].set_title("Demographic Disparity (DD)")
-        axs[0].set_ylabel("Range")
+            ax=axs[0]        )
+
+        axs[0].set_title("Disparate Impact (DI)")
+        axs[0].set_ylabel("")  # Avoid repeating y-label
         axs[0].grid(axis='y', linestyle='--', alpha=0.7)
 
-        # Disparate Impact (DI)
-        sns.boxplot(
-            y=results_df['range_di'], 
-            color='steelblue', 
+        # Demographic Disparity (DD)
+        boxplot_dd = sns.boxplot(
+            y=results_df['range_dd'], 
+            color='#2ab79a',
             width=0.4, 
             showfliers=False, 
-            ax=axs[1]
-        )
-        axs[1].set_title("Disparate Impact (DI)")
-        axs[1].set_ylabel("")  # Avoid repeating y-label
+            ax=axs[1]        )
+        for patch in boxplot_dd.artists:
+            patch.set_facecolor('#1b7764')
+            patch.set_alpha(0.6)  # Set transparency
+        
+        axs[1].set_title("Demographic Disparity (DD)")
+        axs[1].set_ylabel("Range")
         axs[1].grid(axis='y', linestyle='--', alpha=0.7)
 
         # Main title
-        fig.suptitle("Ranges of Plausible Fairness Metrics over Feasible Joint Distributions", fontsize=14)
+        fig.suptitle("Ranges for Possible Fairness Metrics across Feasible Joint Distributions", fontsize=14)
 
         plt.tight_layout(rect=[0, 0.03, 1, 0.99])  # Leave space for suptitle
 
         # Save and show
         plt.savefig(save_path, dpi=300, bbox_inches='tight', format='pdf')
         plt.show()
+        
+def plot_fairness_metrics_from_df(results_df, save_path):
+        
+    for col in ['plausible_metrics_di', 'plausible_metrics_dd']:
+        results_df[col] = results_df[col].apply(str_to_float_list)
+        
+    results_df = results_df[(results_df['alpha'] == 1.0) & (results_df['beta'] == 1.0)]
+        
+        # Flatten arrays from columns with lists/arrays of metrics
+    all_di = np.concatenate(results_df['plausible_metrics_di'].values)
+    all_dd = np.concatenate(results_df['plausible_metrics_dd'].values)
+
+        # Extract reference lines (take first row values)
+    true_di = results_df['true_di'].iloc[0]
+    marginal_preservation_di = results_df['marginal_preservation_di'].iloc[0]
+    em_di = results_df['em_di'].iloc[0]
+
+    true_dd = results_df['true_dd'].iloc[0]
+    marginal_preservation_dd = results_df['marginal_preservation_dd'].iloc[0]
+    em_dd = results_df['em_dd'].iloc[0]
+
+    fig, axs = plt.subplots(1, 2, figsize=(14, 6))
+
+    # Plot DI histogram + lines
+    sns.histplot(all_di, bins=10, color='lightgray', alpha=0.3, ax=axs[0])
+    axs[0].axvline(true_di, color='red', linestyle='-', linewidth=2.5, label='True')
+    axs[0].axvline(marginal_preservation_di, color='blue', linestyle='--', linewidth=2, label='Marginal Preservation')
+    axs[0].axvline(em_di, color='green', linestyle='--', linewidth=2, label='Latent Naïve Bayes')
+    axs[0].set_title('Histogram of Possible DI Metrics')
+    axs[0].set_xlabel('Disparate Impact (DI)', fontsize=12)
+    axs[0].set_ylabel('Count', fontsize=12)
+    #axs[0].legend()
+    axs[0].grid(alpha=0.3)
+
+        # Plot DD histogram + lines
+    sns.histplot(all_dd, bins=10, color='lightgray', alpha=0.3, ax=axs[1])
+    axs[1].axvline(true_dd, color='red', linestyle='-', linewidth=2.5, label='True')
+    axs[1].axvline(marginal_preservation_dd, color='blue', linestyle='--', linewidth=2, label='Marginal Preservation')
+    axs[1].axvline(em_dd, color='green', linestyle='--', linewidth=2, label='Latent Naïve Bayes')
+    axs[1].set_title('Histogram of Possible DD Metrics')
+    axs[1].set_xlabel('Demographic Disparity (DD)', fontsize=12)
+    axs[1].set_ylabel('Count', fontsize=12)
+    #axs[1].legend('')
+    axs[1].grid(alpha=0.3)
+        
+            # Create combined legend from first subplot handles and labels
+    handles, labels = axs[0].get_legend_handles_labels()
+
+        # Add legend to figure
+    fig.legend(handles, labels, loc='upper center', ncol=3, frameon=False, fontsize=12)
+
+    plt.tight_layout(rect=[0, 0, 1, 0.95])  # Leave space at top for legend
+    plt.savefig(save_path, dpi=300, bbox_inches='tight', format='pdf')
+
+    plt.show()
+        
+        
+        

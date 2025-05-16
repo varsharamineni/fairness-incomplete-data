@@ -1,9 +1,10 @@
 [tool.poetry]
-name = "joint-dist-toy"
+name = "fairness-incomplete-data"
 version = "0.0.1"
 description = ""
 authors = ["Varsha R <varsharamineni@gmail.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
