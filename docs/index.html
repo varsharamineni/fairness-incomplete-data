@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Judging the Judges: A Collection of LLM-Generated Relevance Judgements">
+  <meta name="keywords" content="rag, language models, llm">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Judging the Judges: A Collection of LLM-Generated Relevance Judgements</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">
+            <img src="static/images/LLMJudge-logo.png" alt="LLMJudge Logo" width="50" height="40"> 
+            Judging the Judges: <br> A Collection of LLM-Generated Relevance Judgements
+          </h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://rahmanidashti.github.io/">Hossein A. Rahmani</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://clemenciah.github.io/">Clemencia Siro</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://aliannejadi.com/">Mohammad Aliannejadi</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.microsoft.com/en-us/research/people/nickcr/">Nick Craswell</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://plg.uwaterloo.ca/~claclark/">Charles L. A. Clarke</a><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.dei.unipd.it/~faggioli/">Guglielmo Faggioli</a><sup>5</sup>
+            </span>
+            <span class="author-block">
+              <a href="https://www.microsoft.com/en-us/research/people/bmitra/">Bhaskar Mitra</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.microsoft.com/en-us/research/people/pathom/">Paul Thomas</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://sites.google.com/site/emineyilmaz/home">Emine Yilmaz</a><sup>1</sup>,
+            </span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>University College London,</span>
+            <span class="author-block"><sup>2</sup>University of Amsterdam,</span>
+            <span class="author-block"><sup>3</sup>Microsoft,</span>
+            <span class="author-block"><sup>4</sup>University of Waterloo,</span>
+            <span class="author-block"><sup>5</sup>University of Padua</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2408.08896"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>LLMJudge Overview</span>
+                </a>
+              </span>
+              <!-- Challenge Data Link. -->
+              <span class="link-block">
+                <a href="https://github.com/llm4eval/LLMJudge"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Challenge Coda and Data</span>
+                </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://github.com/llm4eval/LLM-as-a-rel/tree/main/submissions"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                </a>
+              </span>
+              <!-- Report Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2502.13908"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Report</span>
+                </a>
+              </span>
+              <!-- Leaderboard Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Leaderboard</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">LLMJudge Benchmark</span>  
+      </h2>
+      <!-- <img src="static/images/submissions.png" alt="submissions."> -->
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Summary</h2>
+        <div class="content has-text-justified">
+          Using Large Language Models for relevance assessments offers promising opportunities to improve Information Retrieval (IR), Nat-
+          ural Language Processing (NLP) and related fields. Indeed, LLMs hold the promise of allowing IR experimenters to build evaluation
+          collections with a fraction of the manual human labour currently required. This could help with fresh topics on which there is still
+          limited knowledge and could mitigate the challenges of evaluating IR systems in low-resource scenarios, where it is challenging to find human annotators. Given the fast-paced recent developments in the
+          domain, many questions concerning LLMs as assessors are yet to be answered. Among the aspects that require further investigation, we can list the impact of various components in a relevance judgment generation pipeline, such as the prompt used or the LLM chosen. This paper benchmarks and reports on the results of a large-scale automatic relevance judgment evaluation, the LLMJudge challenge at SIGIR 2024, where different relevance assessment approaches were proposed. In detail, we release and benchmark 39 LLM-generated relabelings of the TREC 2023 Deep Learning track relevance judgments produced by seven international teams who participated in the LLMJudge challenge. Given their diverse nature, these auto-matically generated relevance judgments can help the community investigate the presence of systematic biases caused by LLMs and develop mitigation techniques.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Animation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">LLMJudge Challenge Dataset</h2>
+        <!-- Interpolating. -->
+        <!-- <h3 class="title is-4">Overall Model Performance</h3> -->
+        <div class="content has-text-justified">
+          <div class="columns is-centered">
+            <div class="column">
+              <img src="static/images/dataset-1.png" alt="alpha results">
+            </div>
+            <div class="column">
+              <img src="static/images/dataset-2.png" alt="label results">
+            </div>
+          </div>
+        </div>
+      </section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Animation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">LLMJudge Benchamrk</h2>
+        <!-- Interpolating. -->
+        <!-- <h3 class="title is-4">Overall Model Performance</h3> -->
+        <div class="content has-text-justified">
+          <img src="static/images/submissions.png" alt="submissions.">
+        </div>
+      </section>
+      <section class="section">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column is-full-width">
+              <h2 class="title is-3">Results and Analysis</h2>
+              <div class="columns is-vcentered interpolation-panel">
+              </div>
+              <br/>
+              <div class="content has-text-justified">
+                <h3 class="title is-4">Main Results</h3>
+                <div class="columns is-centered">
+                  <div class="column">
+                    <img src="static/images/result-1.png" alt="results">
+                  </div>
+                  <div class="column">
+                    <img src="static/images/result-2.png" alt="results">
+                  </div>
+                </div>
+              </div>
+              <div class="content has-text-justified">
+                <h3 class="title is-4">Analysis</h3>
+                <div class="columns is-centered">
+                <div class="column">
+                  <img src="static/images/alpha.png" alt="alpha results">
+                </div>
+                <div class="column">
+                  <img src="static/images/labels.png" alt="label results">
+                </div>
+              </div>
+                <!-- <img src="static/images/alpha.png" alt="alpha results"> -->
+                <!-- <img src="static/images/labels.png" alt="label results"> -->
+                <h4 class="title is-8">(A) Ablations</h4>
+                <div class="columns is-centered">
+                  <div class="column">
+                    <img src="static/images/avglabels.png" alt="labels">
+                  </div>
+                  <div class="column">
+                    <img src="static/images/cohen-kendall.png" alt="label results">
+                  </div>
+                </div>
+              </div>
+            </section>
+      
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@misc{rahmani2025judgingjudgescollectionllmgenerated,
+        title={Judging the Judges: A Collection of LLM-Generated Relevance Judgements}, 
+        author={Hossein A. Rahmani and Clemencia Siro and Mohammad Aliannejadi and Nick Craswell and Charles L. A. Clarke and Guglielmo Faggioli and Bhaskar Mitra and Paul Thomas and Emine Yilmaz},
+        year={2025},
+        eprint={2502.13908},
+        archivePrefix={arXiv},
+        primaryClass={cs.IR},
+        url={https://arxiv.org/abs/2502.13908}, 
+  }</code></pre>
+  </div>
+</section>
+
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://rahmanidashti.github.io/" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
