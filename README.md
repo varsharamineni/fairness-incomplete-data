@@ -50,7 +50,7 @@ Ensuring fairness in AI systems is critical, especially in high-stakes domains s
 ```
 
 ## Results and Plots
-The results are saved as .csv files in the results/ directory. You can use the provided plotting functions provided in paper_visualisations.py to visualise the distributions and fairness metrics.
+The results are saved as `.csv` files in the `results/` directory. You can use the provided plotting functions provided in `paper_visualisations.py` to visualise the distributions and fairness metrics.
 
 ## Installation and Setup with Poetry
 This project uses [Poetry](https://python-poetry.org/) for dependency management and virtual environment setup.
