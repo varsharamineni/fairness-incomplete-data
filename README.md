@@ -28,14 +28,31 @@ Ensuring fairness in AI systems is critical, especially in high-stakes domains s
 
 ## Project Structure
 
+📦 fairness-incomplete-data/
+├── docs/                  # Documentation files
+├── experiments/           # Scripts for simulation and real world experiments 
+├── finalfigs/             # Figures under development
+├── paperfigs/             # Figures for paper
+├── real_data/             # Raw and process data, along with processing script
+├── results/               # Generated results 
+├── src/                   # Core source code
+│   ├── data               # Code for data processing and obtaining distributions
+│   ├── joint_est_with_assum/  # Code for structural assumption method
+│   └── joint_feasible_set/    # Code for feasible set method
+├── test/                  # tests scripts
+├── README.md              # This file
+├── run_and_plot.py        # Run and plot for simulation experiments
+├── plot_real_data_bounds.py   # Run and plot for real data experiments
+├── paper_visualisations.py    # Code for publication plots
+├── pyproject.toml         # Project configuration (poetry)
+└── poetry.lock            # Dependency lock file
 
-## Results 
+## Results and Plots
 The results are saved as `CSV` files in the `results/` directory. You can use the provided plotting functions to visualize the distributions and fairness metrics.
 
 ## Installation and Setup with Poetry
 This project uses [Poetry](https://python-poetry.org/) for dependency management and virtual environment setup.
 
-### Install Poetry
 If you don’t already have Poetry installed, you can install it using the following command:
 ```bash
 curl -sSL https://install.python-poetry.org | python3 -
