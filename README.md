@@ -28,6 +28,7 @@ Ensuring fairness in AI systems is critical, especially in high-stakes domains s
 
 ## Project Structure
 
+```
 📦 fairness-incomplete-data/
 ├── docs/                  # Documentation files
 ├── experiments/           # Scripts for simulation and real world experiments 
@@ -46,6 +47,7 @@ Ensuring fairness in AI systems is critical, especially in high-stakes domains s
 ├── paper_visualisations.py    # Code for publication plots
 ├── pyproject.toml         # Project configuration (poetry)
 └── poetry.lock            # Dependency lock file
+```
 
 ## Results and Plots
 The results are saved as `CSV` files in the `results/` directory. You can use the provided plotting functions to visualize the distributions and fairness metrics.
