@@ -33,11 +33,11 @@ Ensuring fairness in AI systems is critical, especially in high-stakes domains s
 ├── docs/                  # Documentation files
 ├── experiments/           # Scripts for simulation and real world experiments 
 ├── finalfigs/             # Figures under development
-├── paperfigs/             # Figures for paper
+├── paperfigs/             # Figures for publication
 ├── real_data/             # Raw and process data, along with processing script
 ├── results/               # Generated results 
 ├── src/                   # Core source code
-│   ├── data               # Code for data processing and obtaining distributions
+│   ├── data /              # Code for data processing and obtaining distributions
 │   ├── joint_est_with_assum/  # Code for structural assumption method
 │   └── joint_feasible_set/    # Code for feasible set method
 ├── test/                  # tests scripts
@@ -50,7 +50,7 @@ Ensuring fairness in AI systems is critical, especially in high-stakes domains s
 ```
 
 ## Results and Plots
-The results are saved as `CSV` files in the `results/` directory. You can use the provided plotting functions to visualize the distributions and fairness metrics.
+The results are saved as .csv files in the results/ directory. You can use the provided plotting functions provided in paper_visualisations.py to visualise the distributions and fairness metrics.
 
 ## Installation and Setup with Poetry
 This project uses [Poetry](https://python-poetry.org/) for dependency management and virtual environment setup.
